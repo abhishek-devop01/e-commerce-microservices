@@ -1,6 +1,5 @@
 const { body, validationResult } = require("express-validator");
 
-
 const respondWithValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -9,16 +8,13 @@ const respondWithValidationErrors = (req, res, next) => {
   next();
 };
 
-
 const registerUservalidations = [
   body("username")
     .isString()
     .withMessage("username must be a string")
     .isLength({ min: 3 })
     .withMessage("username must be at least 3 characters long"),
-  body("email")
-  .isEmail()
-  .withMessage("Invalid email format"),
+  body("email").isEmail().withMessage("Invalid email format"),
   body("password")
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters long"),
@@ -36,7 +32,23 @@ const registerUservalidations = [
   respondWithValidationErrors,
 ];
 
+const loginUserValidator = [
+  body("email")
+    .isEmail()
+    .withMessage("Invalid email format"),
+  boyd("username")
+    .isString()
+    .withMessage("Username must be a string"),
+  body("password")
+      .isLength({
+          min: 6,
+        })
+      .notEmpty()
+      .withMessage("Password must be atleast 6 characters long"),
+  respondWithValidationErrors,
+];
 
 module.exports = {
   registerUservalidations,
+  loginUserValidator,
 };
