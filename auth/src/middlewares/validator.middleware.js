@@ -16,7 +16,9 @@ const registerUservalidations = [
     .withMessage("username must be a string")
     .isLength({ min: 3 })
     .withMessage("username must be at least 3 characters long"),
-  body("email").isEmail().withMessage("Invalid email format"),
+  body("email")
+  .isEmail()
+  .withMessage("Invalid email format"),
   body("password")
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters long"),

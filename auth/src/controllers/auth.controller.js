@@ -18,7 +18,7 @@ async function registerUser(req, res) {
     if (isUserAlreadyExits) {
       return res
         .status(400)
-        .json({ error: "User with given email or username already exists" });
+        .json({ message: "User with given email or username already exists" });
     }
     const hash = await bcrypt.hash(password, 10);
 
