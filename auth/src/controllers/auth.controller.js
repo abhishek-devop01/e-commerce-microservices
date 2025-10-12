@@ -1,6 +1,7 @@
 const userModel = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const redis = require("../db/redis");
 
 async function registerUser(req, res) {
   try {
@@ -124,4 +125,6 @@ async function getCurrentUser(req, res) {
     user: req.user,
   });
 }
+
+
 module.exports = { registerUser, loginUser, getCurrentUser };
