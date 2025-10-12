@@ -52,7 +52,41 @@ const loginUserValidation = [
     }
 ]
 
+const addUserAddressValidation = [
+    body('street')
+        .isString()
+        .withMessage('Street must be a string')
+        .notEmpty()
+        .withMessage('Street is required'),
+    body('city')
+        .isString()
+        .withMessage('City must be a string')
+        .notEmpty()
+        .withMessage('City is required'),
+    body('state')
+        .isString()
+        .withMessage('State must be a string')
+        .notEmpty()
+        .withMessage('State is required'),
+    body('pincode')
+        .isString()
+        .withMessage('pincode must be a string')
+        .notEmpty()
+        .withMessage('pincode is required'),
+    body('country')
+        .isString()
+        .withMessage('Country must be a string')
+        .notEmpty()
+        .withMessage('Country is required'),
+    body('isDefault')
+        .optional()
+        .isBoolean()
+        .withMessage('isDefault must be a boolean'),
+    respondWithValidationErrors,  
+]
+
 module.exports = {
   registerUservalidations,
   loginUserValidation,
+  addUserAddressValidation
 };

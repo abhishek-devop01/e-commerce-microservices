@@ -126,5 +126,42 @@ async function getCurrentUser(req, res) {
   });
 }
 
+async function logoutUser(req, res) {
+  const token = req.cookies.token;
 
-module.exports = { registerUser, loginUser, getCurrentUser };
+  if (token) {
+    await redis.set(`blacklist:${token}`, "true", "EX", 24 * 60 * 60); // Set token in Redis with 1 day expiry
+  }
+  res.clearCookie("token", { httpOnly: true, secure: true });
+
+  return res.status(200).json({ message: "Logged out successfully" });
+}
+
+async function getUserAddresses(req, res) {
+  const id = req.user.id;
+  const user = await userModel.findById(id).select("addresses");
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+  
+  return res.status(200).json({ addresses: user.addresses });
+}
+
+async function addUserAddress(req, res) {
+  const id = req.user.id;
+  const { street, city, state, pincode, country, isDefault } = req.body;
+  
+  const user = await userModel.findOneAndUpdate({_id:id},{
+    $push: { addresses: { street, city, state, pincode, country, isDefault } }
+  }, { new: true});
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  return res.status(200).json({ addresses: user.addresses });
+
+
+}
+module.exports = { registerUser, loginUser, getCurrentUser, logoutUser, getUserAddresses, addUserAddress };
