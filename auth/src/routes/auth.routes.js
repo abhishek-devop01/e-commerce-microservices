@@ -11,7 +11,7 @@ router.post('/login', validator.loginUserValidation, authController.loginUser)
 router.get('/me',authMiddleware.authMiddleware, authController.getCurrentUser)
 router.get('/logout', authController.logoutUser)
 
-router.get('/user/me/addresses', authMiddleware.authMiddleware, authController.getUserAddresses)
-router.post('/user/me/addresses', authMiddleware.authMiddleware, validator.addUserAddressValidation, authController.addUserAddress)
+router.get('/users/me/addresses', authMiddleware.authMiddleware, authController.getUserAddresses)
+router.post('/users/me/addresses', authMiddleware.authMiddleware, validator.addUserAddressValidation, authController.addUserAddress)
 
 module.exports = router
