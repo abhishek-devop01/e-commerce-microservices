@@ -81,7 +81,7 @@ To get this project up and running locally, you will need:
 
 ```bash
 # Clone the repository
-git clone [https://github.com/your-username/ai-ecommerce-platform.git](https://github.com/abhishek-devop01/e-commerce-microservices.git)
+git clone [https://github.com/abhishek-devop01/e-commerce-microservices.git](https://github.com/abhishek-devop01/e-commerce-microservices.git)
 cd e-commerce-microservices
 
 # Install dependencies for each microservice (example for Auth Service)
