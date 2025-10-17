@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 
-async function createAuthMiddleware(roles = ["user"]){
+function createAuthMiddleware(roles = ["user"]) {
 
      return function authMiddleware(req, res, next) {
           const token = req.cookies?.token || req.headers?.authorization?.split(" ")[1];
