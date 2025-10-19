@@ -2,12 +2,12 @@ const cartModel = require('../models/cart.model')
 
 
 
-async function name(){
+async function addItemToCart(req, res){
 
 }
 
 
 
 module.exports = {
-     
+     addItemToCart
 }
