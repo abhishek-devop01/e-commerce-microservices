@@ -1,11 +1,25 @@
 const express = require('express')
 const router = express.Router()
-const createAuthmiddleware = require('../../middlewares/auth.middleware')
+const createAuthMiddleware = require('../middlewares/auth.middleware')
 const cartController= require('../controllers/cart.controller')
-const { validateAddItemToCart } = require('../middlewares/validation.middleware')
+const { validateAddItemToCart, validateUpdateCartItem } = require('../middlewares/validation.middleware')
 
-router.post('/items',validateAddItemToCart, createAuthmiddleware(["user"]), cartController.addItemToCart)
+router.get('/cart',
+    createAuthMiddleware([ 'user' ]),
+    cartController.getCart
+);
 
+router.post('/items',
+     validateAddItemToCart,
+     createAuthMiddleware(["user"]),
+     cartController.addItemToCart
+);
+router.patch(
+    '/items/:productId',
+    validateUpdateCartItem,
+    createAuthMiddleware([ 'user' ]),
+    cartController.updateItemQuantity
+);
 
 
 module.exports = router
