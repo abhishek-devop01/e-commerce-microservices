@@ -1,10 +1,5 @@
 // models code
-import { type } from '../../node_modules/raw-body/index.d';
-import { to } from '../../node_modules/sisteransi/src/sisteransi.d';
-
 const mongoose = require('mongoose');
-
-
 
 const addressSchema = new mongoose.Schema({
     street: String,
