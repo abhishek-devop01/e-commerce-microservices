@@ -88,4 +88,4 @@ cd e-commerce-microservices
 cd services/auth-service
 npm install
 
-# ... more setup instructions for other services and Docker ...
+
