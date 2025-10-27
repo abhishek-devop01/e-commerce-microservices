@@ -50,15 +50,21 @@ async function createOrder(req, res) {
             }
         })
 
-        const newOrder = new orderModel({
-            userId: user._id,
+         const order = await orderModel.create({
+            user: user.id,
             items: orderItems,
-            status:"PENDING",
-            totalAmount: {
+            status: "PENDING",
+            totalPrice: {
                 amount: priceAmount,
-                currency: "INR"
+                currency: "INR" // assuming all products are in USD for simplicity
             },
-            shippingAddress: req.body.shippingAddress
+            shippingAddress: {
+                street: req.body.shippingAddress.street,
+                city: req.body.shippingAddress.city,
+                state: req.body.shippingAddress.state,
+                zip: req.body.shippingAddress.pincode,
+                country: req.body.shippingAddress.country,
+            }
         })
 
     }catch(err){
