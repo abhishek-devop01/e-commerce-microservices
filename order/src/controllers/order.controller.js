@@ -15,14 +15,51 @@ async function createOrder(req, res) {
         })
 
         const products = await Promise.all(cartResponse.data.cart.items.map(async(item)=>{
-            return await axios.et(`https://localhost:3001/api/products/${item.productId}`,{
+            return await (axios.get(`https://localhost:3001/api/products/${item.productId}`,{
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            })
+            })).data.data
         }))
 
-        console.log("Cart response:", cartResponse.data)
+        let priceAmount = 0;
+
+        const orderItems = cartResponse.data.cart.items.map((item, index)=>{
+
+
+
+            const product = product.find(p => p._id=== item.productId)
+
+
+            // if product not in stock 
+            if( product.stock < item.quantity){
+                throw new Error(`Product ${product.name} is out of stock`)
+            }
+
+            const itemTotal = product.price * item.quantity;
+            priceAmount += itemTotal;
+
+            return {
+                productId: item.productId,
+                quantity: item.quantity,
+                price: {
+                    amount:itemTotal,
+                    currency: product.price.currency
+                }
+
+            }
+        })
+
+        const newOrder = new orderModel({
+            userId: user._id,
+            items: orderItems,
+            status:"PENDING",
+            totalAmount: {
+                amount: priceAmount,
+                currency: "INR"
+            },
+            shippingAddress: req.body.shippingAddress
+        })
 
     }catch(err){
         console.error("Error fetching cart:", err);
