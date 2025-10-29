@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 
 let mongo;
 
+// Give Jest more time to start the in-memory Mongo server in CI/slow machines
+jest.setTimeout(20000);
+
 beforeAll(async () => {
     // Start in-memory MongoDB
     mongo = await MongoMemoryServer.create();
