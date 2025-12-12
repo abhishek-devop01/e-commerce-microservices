@@ -1,7 +1,6 @@
 const { Server } = require("socket.io");
 const jwt = require("jsonwebtoken");
 const agent = require("../agent/agent");
-const { meta } = require("zod/v4/core");
 
 async function initSocketServer(httpServer) {
   const io = new Server(httpServer, {});
