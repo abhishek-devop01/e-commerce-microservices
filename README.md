@@ -1,8 +1,5 @@
 # 🛒 AI-Powered E-commerce Platform (Microservices Architecture)
 
-Microservices Architecture Diagram
-_*(Replace this image link with your actual project logo or a relevant architectural diagram image once you have one. For now, it's a placeholder.)*_
-
 ##  Overview
 
 Welcome to the repository for a brand new, full-stack **AI-Powered E-commerce Website**!
