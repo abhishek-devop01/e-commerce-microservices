@@ -6,7 +6,7 @@
     "test": "tests"
   },
   "scripts": {
-  "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles",
+    "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },

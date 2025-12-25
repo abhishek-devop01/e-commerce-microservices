@@ -17,7 +17,7 @@ async function createPayment(req, res) {
 
         const orderId = req.params.orderId;
 
-        const orderResponse = await axios.get("http://localhost:3003/api/orders/" + orderId, {
+        const orderResponse = await axios.get("http:localhost:3003/api/orders/" + orderId, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -38,6 +38,7 @@ async function createPayment(req, res) {
             }
         })
 
+        await publishToQueue("PAYMENT_SELLER_DASHBOARD.PAYMENT_CREATED", payment)
         await publishToQueue("PAYMENT_NOTIFICATION.PAYMENT_INITIATED", {
             email: req.user.email,
             orderId: orderId,
@@ -96,6 +97,7 @@ async function verifyPayment(req, res) {
         )
 
 
+        await publishToQueue("PAYMENT_SELLER_DASHBOARD.PAYMENT_UPDATED", payment)
 
         res.status(200).json({ message: 'Payment verified successfully', payment });
 
